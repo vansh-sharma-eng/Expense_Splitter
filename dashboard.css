@@ -1,0 +1,325 @@
+/* ===============================
+   RESET
+================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", system-ui, sans-serif;
+}
+
+body {
+  background: #ecf0f3;
+  color: #2e2e2e;
+}
+body.dark {
+  background:#0f172a;
+  color:#e5e7eb;
+}
+body.dark .card,
+body.dark input,
+body.dark select {
+  background:#1e293b;
+  color:#e5e7eb;
+}
+
+
+/* ===============================
+   HEADER
+================================ */
+.header {
+  background: #ecf0f3;
+  padding: 22px;
+  box-shadow: inset 2px #0000;
+}
+
+.header-inner {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-text h1 {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.header-text p {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* ===============================
+   PROFILE
+================================ */
+.profile {
+  position: relative;
+}
+
+.profile-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: #ecf0f3;
+  box-shadow: 
+    6px 6px 12px #d1d9e6,
+   -6px -6px 12px #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.profile-menu {
+  position: absolute;
+  right: 0;
+  top: 56px;
+  background: #ecf0f3;
+  border-radius: 16px;
+  padding: 14px;
+  min-width: 140px;
+  box-shadow: 
+    10px 10px 20px #d1d9e6,
+   -10px -10px 20px #ffffff;
+  display: none;
+}
+
+.profile-menu button {
+  background: #ef4444;
+  color: white;
+  border: none;
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* ===============================
+   CONTAINER
+================================ */
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 28px 18px 60px;
+}
+
+/* ===============================
+   CARD
+================================ */
+.card {
+  background: #ecf0f3;
+  border-radius: 22px;
+  padding: 26px;
+  box-shadow: 
+    12px 12px 24px #d1d9e6,
+   -12px -12px 24px #ffffff;
+}
+
+.card h3 {
+  font-size: 17px;
+  margin-bottom: 18px;
+}
+
+/* ===============================
+   INPUTS
+================================ */
+input,
+select {
+  width: 100%;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+  border-radius: 14px;
+  border: none;
+  background: #ecf0f3;
+  box-shadow: inset 6px 6px 10px #d1d9e6,
+              inset -6px -6px 10px #ffffff;
+  font-size: 14px;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  box-shadow: inset 4px 4px 8px #cfd6e3,
+              inset -4px -4px 8px #ffffff;
+}
+
+/* ===============================
+   BUTTON
+================================ */
+button {
+  width: 100%;
+  padding: 14px;
+  border-radius: 16px;
+  border: none;
+  background: #6366f1;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 8px 18px rgba(99,102,241,0.4);
+}
+
+button:disabled {
+  background: #bfc4ff;
+  box-shadow: none;
+}
+
+/* ===============================
+   STATS
+================================ */
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.stats div {
+  background: #ecf0f3;
+  padding: 18px;
+  border-radius: 18px;
+  box-shadow: inset 6px 6px 10px #d1d9e6,
+              inset -6px -6px 10px #ffffff;
+  text-align: center;
+}
+
+.stats span {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.stats strong {
+  display: block;
+  margin-top: 6px;
+  font-size: 20px;
+}
+
+/* ===============================
+   GRAPHS
+================================ */
+.graphs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 26px;
+  margin: 28px 0;
+}
+
+canvas {
+  max-width: 260px;
+  margin: auto;
+}
+
+/* ===============================
+   DASHBOARD
+================================ */
+.dashboard {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 28px;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+/* ===============================
+   TAGS
+================================ */
+.tags {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.tag {
+  padding: 8px 16px;
+  background: #ecf0f3;
+  border-radius: 999px;
+  box-shadow: inset 4px 4px 6px #d1d9e6,
+              inset -4px -4px 6px #ffffff;
+  font-size: 13px;
+}
+
+/* ===============================
+   HISTORY
+================================ */
+#history p {
+  background: #ecf0f3;
+  padding: 14px;
+  border-radius: 14px;
+  box-shadow: inset 4px 4px 6px #d1d9e6,
+              inset -4px -4px 6px #ffffff;
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+
+/* ===============================
+   SETTLEMENT
+================================ */
+table {
+  width: 100%;
+}
+
+td {
+  padding: 10px 6px;
+  font-weight: 600;
+}
+
+.pay {
+  color: #dc2626;
+}
+
+.receive {
+  color: #16a34a;
+}
+
+.settled {
+  color: #6b7280;
+}
+
+/* ===============================
+   POPUP
+================================ */
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.popup-box {
+  background: #ecf0f3;
+  padding: 28px;
+  border-radius: 22px;
+  width: 320px;
+  box-shadow: 
+    12px 12px 24px #d1d9e6,
+   -12px -12px 24px #ffffff;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.popup-actions .cancel {
+  background: #e5e7eb;
+  color: black;
+}
+
+/* ===============================
+   RESPONSIVE
+================================ */
+@media(max-width:900px) {
+  .graphs,
+  .dashboard {
+    grid-template-columns: 1fr;
+  }
+}

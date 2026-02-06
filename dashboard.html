@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Expense Splitter</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://unpkg.com/html5-qrcode"></script>
+
+<link rel="stylesheet" href="dashboard.css">
+</head>
+
+<body>
+
+<header class="header">
+  <h1>Expense Splitter</h1>
+</header>
+
+<main class="container">
+
+<section class="card">
+  <input id="tripName" placeholder="Trip Name">
+  <input id="tripBudget" type="number" placeholder="Trip Budget">
+  <button id="tripBtn">Save Trip</button>
+
+  <div class="stats">
+    <div>Spent: <strong id="spentStat">0</strong></div>
+    <div>Remaining: <strong id="remainStat">0</strong></div>
+  </div>
+</section>
+
+<section class="card">
+  <h3>Members</h3>
+  <input id="memberInput" placeholder="Member name & Enter" disabled>
+  <div id="members"></div>
+</section>
+
+<section class="card">
+  <h3>Add Expense</h3>
+  <input id="desc" placeholder="Description" disabled>
+  <input id="amount" type="number" placeholder="Amount" disabled>
+  <select id="payer" disabled></select>
+  <button id="addExpenseBtn" disabled>Add</button>
+</section>
+
+<section class="card">
+  <h3>Expenses</h3>
+  <div id="history">No expenses</div>
+</section>
+
+<section class="card">
+  <h3>Settlement</h3>
+  <table>
+    <tbody id="settlement"></tbody>
+  </table>
+  <button onclick="downloadInvoice()">Download Invoice</button>
+</section>
+
+<div id="qr"></div>
+
+</main>
+
+<!-- SCANNER MODAL -->
+<div id="scannerModal" class="popup-overlay" style="display:none">
+  <div class="popup-box">
+    <h3>Scan QR Code</h3>
+
+    <div id="qr-reader" style="width:260px;margin:10px auto"></div>
+
+    <button id="downloadBtn" style="display:none;background:#16a34a">
+      Download Invoice
+    </button>
+
+    <button onclick="openScanner()">Open QR Scanner</button>
+<div id="scannerModal">
+  <div id="qr-reader"></div>
+</div>
+
+  </div>
+</div>
+
+<script src="dashboard.js"></script>
+</body>
+</html>

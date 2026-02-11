@@ -1,86 +1,97 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<title>Expense Splitter</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Expense Splitter</title>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-<script src="https://unpkg.com/html5-qrcode"></script>
-
-<link rel="stylesheet" href="dashboard.css">
 </head>
 
 <body>
 
 <header class="header">
   <h1>Expense Splitter</h1>
+  <button id="themeBtn">🌙</button>
 </header>
 
-<main class="container">
+<div class="container">
 
-<section class="card">
-  <input id="tripName" placeholder="Trip Name">
-  <input id="tripBudget" type="number" placeholder="Trip Budget">
-  <button id="tripBtn">Save Trip</button>
-
-  <div class="stats">
-    <div>Spent: <strong id="spentStat">0</strong></div>
-    <div>Remaining: <strong id="remainStat">0</strong></div>
-  </div>
-</section>
-
-<section class="card">
-  <h3>Members</h3>
-  <input id="memberInput" placeholder="Member name & Enter" disabled>
-  <div id="members"></div>
-</section>
-
-<section class="card">
-  <h3>Add Expense</h3>
-  <input id="desc" placeholder="Description" disabled>
-  <input id="amount" type="number" placeholder="Amount" disabled>
-  <select id="payer" disabled></select>
-  <button id="addExpenseBtn" disabled>Add</button>
-</section>
-
-<section class="card">
-  <h3>Expenses</h3>
-  <div id="history">No expenses</div>
-</section>
-
-<section class="card">
-  <h3>Settlement</h3>
-  <table>
-    <tbody id="settlement"></tbody>
-  </table>
-  <button onclick="downloadInvoice()">Download Invoice</button>
-</section>
-
-<div id="qr"></div>
-
-</main>
-
-<!-- SCANNER MODAL -->
-<div id="scannerModal" class="popup-overlay" style="display:none">
+  <div class="card">
+    <div class="trip-top">
+      <input id="tripName" placeholder="Trip Name">
+      <button id="tripBtn" class="primary">Save Trip</button>
+      <button id="newTripBtn" class="danger">New Trip</button>
+    </div>
+<div id="tripPopup" class="popup">
   <div class="popup-box">
-    <h3>Scan QR Code</h3>
-
-    <div id="qr-reader" style="width:260px;margin:10px auto"></div>
-
-    <button id="downloadBtn" style="display:none;background:#16a34a">
-      Download Invoice
-    </button>
-
-    <button onclick="openScanner()">Open QR Scanner</button>
-<div id="scannerModal">
-  <div id="qr-reader"></div>
-</div>
-
+    <p>🎉 Trip saved successfully!</p>
+    <button id="closePopup" class="primary">OK</button>
   </div>
 </div>
 
-<script src="dashboard.js"></script>
+    <div class="stats">
+      <div class="stat-box">
+        <div>
+          <p>Spent</p>
+          <h2 id="spentStat">₹0</h2>
+        </div>
+      </div>
+
+      <div class="stat-box">
+        <div>
+          <p>Remaining</p>
+          <h2 id="remainStat">—</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="card">
+  <h3>Members</h3>
+
+  <div class="member-row">
+    <input id="memberInput" placeholder="Member name" disabled>
+    <button id="addMemberBtn" class="primary" disabled>Add</button>
+  </div>
+
+  <div id="members"></div>
+</div>
+
+  <div class="card">
+    <h3>Add Expense</h3>
+
+    <input id="desc" placeholder="Description" disabled>
+    <input id="amount" type="number" placeholder="Amount" disabled>
+    <select id="payer" disabled></select>
+
+    <select id="splitType" disabled>
+      <option value="equal">Equally</option>
+      <option value="unequal">Unequally</option>
+      <option value="percent">By Percentage</option>
+    </select>
+
+    <div id="extraInput"></div>
+
+    <button id="addExpenseBtn" class="primary" disabled>Add</button>
+  </div>
+
+  <div class="card">
+    <h3>Expenses</h3>
+    <div id="history"></div>
+    <table>
+      <tbody id="settlement"></tbody>
+    </table>
+    <div id="emptyState" class="empty">
+  <div class="emoji">🙂</div>
+  <p>No expenses</p>
+  </div>
+   <div id="qr"></div>
+
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>

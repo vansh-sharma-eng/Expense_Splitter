@@ -269,17 +269,26 @@ if(localStorage.getItem("theme")==="dark"){
   document.body.classList.add("dark")
 }
 
-function generateQR(){
-  let data = localStorage.getItem("tripData")
-  if(!data) return
-function generateQR(){
-  $("qr").innerHTML = ""
+function generateQR() {
 
-}
-}
- new QRCode("qr", {
+  // Check if trip data exists
+  let data = localStorage.getItem("tripData")
+  if (!data) {
+    alert("No trip data found")
+    return
+  }
+
+  const qrDiv = document.getElementById("qr")
+
+  if (!qrDiv) {
+    console.error("QR div not found")
+    return
+  }
+  qrDiv.innerHTML = ""
+  new QRCode(qrDiv, {
     text: window.location.origin + "/invoice.html",
     width: 150,
     height: 150
   })
+}
 

@@ -272,7 +272,14 @@ if(localStorage.getItem("theme")==="dark"){
 function generateQR(){
   let data = localStorage.getItem("tripData")
   if(!data) return
-
+function generateQR(){
   $("qr").innerHTML = ""
-  new QRCode("qr",{text:location.href,width:120,height:120})
+
 }
+}
+ new QRCode("qr", {
+    text: window.location.origin + "/invoice.html",
+    width: 150,
+    height: 150
+  })
+

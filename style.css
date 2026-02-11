@@ -1,0 +1,255 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+body{
+  min-height:100vh;
+  background:linear-gradient(135deg,#cfd9df,#e2ebf0);
+  color:#141414;
+  font-weight: 400;
+  transition:0.3s ease;
+}
+.header{
+  text-align:center;
+  padding:25px 0;
+  position:relative;
+}
+.header h1{
+  font-size:34px;
+  font-weight:600;
+}
+#themeBtn{
+  position:absolute;
+  right:25px;
+  top:20px;
+  height:42px;
+  width:42px;
+  border-radius:50%;
+  border:none;
+  background:#4e8d9b;
+  color:white;
+  cursor:pointer;
+  font-size:18px;
+  transition:0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#themeBtn:hover{
+  transform:scale(1.1);
+}
+.empty{
+  text-align:center;
+  padding:30px 0;
+  opacity:0.6;
+}
+.emoji{
+  font-size:60px;
+  margin-bottom:10px;
+}
+.popup{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.4);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:1000;
+}
+.popup-box{
+  background:#f3ece2;
+  padding:30px;
+  border-radius:20px;
+  text-align:center;
+  min-width:250px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+.popup-box p{
+  margin-bottom:20px;
+  font-size:18px;
+}
+body.dark .popup-box{
+  background:#1f2937;
+  color:white;
+}
+.container{
+  width:92%;
+  margin:auto;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:25px;
+  padding-bottom:40px;
+}
+.card{
+  background:#f3ece2;
+  padding:20px;
+  border: 2px solid black;
+  border-radius:20px;
+  box-shadow:0 8px 25px rgba(0,0,0,0.08);
+  transition:0.3s;
+}
+.card h3{
+  margin-bottom:15px;
+}
+input,select{
+  width:50%;
+  padding:12px;
+  border-radius:12px;
+  border:2px solid #ddd;
+  background:#efe7db;
+  margin-bottom:12px;
+  font-size:14px;
+  transition:0.3s;
+}
+input:focus,select:focus{
+  outline:none;
+  border-color:#4e8d9b;
+}
+button{
+  padding:10px 16px;
+  border-radius:12px;
+  border:none;
+  cursor:pointer;
+  font-size:14px;
+  transition:0.3s ease;
+}
+button:hover{
+  transform:translateY(-2px);
+}
+.primary{
+  background:#4e8d9b;
+  color:white;
+}
+.primary:hover{
+  background:#3f7d8a;
+}
+.danger{
+  background:#e67c73;
+  color:white;
+}
+.danger:hover{
+  background:#d9655c;
+}
+.trip-top{
+  display:flex;
+  gap:10px;
+  margin-bottom:20px;
+}
+.trip-top input{
+  flex:1;
+}
+.stats{
+  display:flex;
+  gap:20px;
+  margin-top:15px;
+}
+.stat-box{
+  flex:1;
+  background:#efe7db;
+  border-radius:16px;
+  padding:18px;
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+.stat-box img{
+  width:50px;
+  height:50px;
+}
+.stat-right p{
+  font-size:14px;
+}
+.stat-right h2{
+  font-size:22px;
+  margin-top:4px;
+}
+#members{
+  margin-top:10px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+.member-tag{
+  padding:6px 14px;
+  border-radius:20px;
+  font-size:13px;
+  font-weight:500;
+  color:white;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  animation:pop 0.3s ease;
+}
+.member-tag:nth-child(1){ background:#4e8d9b; }
+.member-tag:nth-child(2){ background:#e67c73; }
+.member-tag:nth-child(3){ background:#6c5ce7; }
+.member-tag:nth-child(4){ background:#00b894; }
+.member-tag:nth-child(5){ background:#fdcb6e; color:#333; }
+.member-tag:nth-child(6){ background:#0984e3; }
+.member-tag:nth-child(7){ background:#d63031; }
+@keyframes pop{
+  from{
+    transform:scale(0.8);
+    opacity:0;
+  }
+  to{
+    transform:scale(1);
+    opacity:1;
+  }
+}
+.empty{
+  text-align:center;
+  padding:30px 0;
+  opacity:0.6;
+}
+.emoji{
+  font-size:60px;
+  margin-bottom:10px;
+}
+#downloadBtn{
+  width:100%;
+  margin-top:15px;
+}
+body.dark{
+  background:linear-gradient(135deg,#202020,#1b1b1b);
+  color:#e2e8f0;
+}
+body.dark .card{
+  background:#272727;
+}
+body.dark input,
+body.dark select{
+  background:#2c2c2c;
+  border:1px solid #475569;
+  color:white;
+}
+body.dark .stat-box{
+  background:#2c2c2c;
+}
+body.dark .primary{
+  background:#06b5d4af;
+}
+body.dark #themeBtn{
+  background:#fafafaee;
+}
+body.dark .danger{
+  background:#ef4444da;
+}
+body.dark .member-tag{
+  opacity:0.9;
+}
+#qr{
+  display: flex;
+  float: right;
+  bottom: 0%;
+}
+@media(max-width:900px){
+  .container{
+    grid-template-columns:1fr;
+  }
+}

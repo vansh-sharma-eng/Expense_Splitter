@@ -4,76 +4,10 @@
 <meta charset="UTF-8">
 <title>Trip Invoice</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<link rel="stylesheet" href="invoice.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-<style>
-body{
-  font-family:Poppins,system-ui,sans-serif;
-  background:#f3f4f6;
-  padding:30px;
-}
-
-.bill{
-  max-width:820px;
-  margin:auto;
-  background:white;
-  padding:30px;
-  border:1px solid #e5e7eb;
-}
-
-.header{
-  display:flex;
-  justify-content:space-between;
-  border-bottom:2px solid #000;
-  padding-bottom:10px;
-}
-
-.header h2{margin:0}
-
-.meta{font-size:13px;text-align:right}
-
-.section{
-  margin-top:24px;
-}
-
-.section h3{
-  font-size:15px;
-  margin-bottom:8px;
-  border-bottom:1px solid #ddd;
-  padding-bottom:4px;
-}
-
-table{
-  width:100%;
-  border-collapse:collapse;
-  font-size:14px;
-}
-
-th,td{
-  border:1px solid #ccc;
-  padding:8px;
-}
-
-th{
-  background:#f9fafb;
-}
-
-.total{
-  text-align:right;
-  font-size:18px;
-  font-weight:700;
-  margin-top:15px;
-}
-
-.footer{
-  margin-top:30px;
-  text-align:center;
-  font-size:12px;
-  color:#6b7280;
-}
-</style>
 </head>
 
 <body>
@@ -130,100 +64,7 @@ th{
 
 </div>
 
-<script>
-/* ===== LOAD DATA (QR OR LOCAL) ===== */
-let data;
-const params = new URLSearchParams(window.location.search);
-
-if (params.has("data")) {
-  data = JSON.parse(atob(params.get("data")));
-} else {
-  data = JSON.parse(localStorage.getItem("tripData"));
-}
-
-if (!data) {
-  alert("No invoice data found");
-}
-
-/* ===== BASIC INFO ===== */
-const symbols = { INR:"₹", USD:"$", EUR:"€" };
-
-document.getElementById("tripName").textContent = data.name;
-document.getElementById("invoiceNo").textContent =
-  "INV-" + Math.floor(100000 + Math.random() * 900000);
-document.getElementById("invoiceDate").textContent =
-  new Date().toLocaleDateString();
-
-document.getElementById("totalSpent").textContent =
-  symbols[data.currency] + data.totalSpent.toFixed(2);
-
-/* ===== EXPENSE TABLE ===== */
-const expBody = document.getElementById("expenseRows");
-data.expenses.forEach((e, i) => {
-  expBody.innerHTML += `
-    <tr>
-      <td>${i + 1}</td>
-      <td>${e.desc}</td>
-      <td>${e.payer}</td>
-      <td>${symbols[data.currency]}${e.amt.toFixed(2)}</td>
-    </tr>
-  `;
-});
-
-/* ===== SETTLEMENT LOGIC (SAME AS DASHBOARD) ===== */
-function calculateWhoPaysWhom(balances) {
-  const debtors = [], creditors = [], res = [];
-
-  for (let m in balances) {
-    if (balances[m] < 0) debtors.push({ name: m, amt: -balances[m] });
-    if (balances[m] > 0) creditors.push({ name: m, amt: balances[m] });
-  }
-
-  let i = 0, j = 0;
-  while (i < debtors.length && j < creditors.length) {
-    const pay = Math.min(debtors[i].amt, creditors[j].amt);
-    res.push({ from: debtors[i].name, to: creditors[j].name, amt: pay });
-    debtors[i].amt -= pay;
-    creditors[j].amt -= pay;
-    if (!debtors[i].amt) i++;
-    if (!creditors[j].amt) j++;
-  }
-  return res;
-}
-
-/* ===== SETTLEMENT TABLE ===== */
-const setBody = document.getElementById("settlementRows");
-const flows = calculateWhoPaysWhom(data.balances);
-
-if (!flows.length) {
-  setBody.innerHTML = `<tr><td colspan="3">All settled</td></tr>`;
-}
-
-flows.forEach(f => {
-  setBody.innerHTML += `
-    <tr>
-      <td>${f.from}</td>
-      <td>${f.to}</td>
-      <td>${symbols[data.currency]}${f.amt.toFixed(2)}</td>
-    </tr>
-  `;
-});
-
-/* ===== AUTO PDF DOWNLOAD ===== */
-window.onload = async () => {
-  const canvas = await html2canvas(document.getElementById("bill"), { scale: 2 });
-  const img = canvas.toDataURL("image/png");
-
-  const { jsPDF } = window.jspdf;
-  const pdf = new jsPDF("p", "mm", "a4");
-
-  const w = 210;
-  const h = canvas.height * w / canvas.width;
-
-  pdf.addImage(img, "PNG", 0, 0, w, h);
-  pdf.save(`${data.name}-invoice.pdf`);
-};
-</script>
+<script src="invoice.js"></script>
 
 </body>
 </html>

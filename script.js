@@ -7,12 +7,13 @@ let totalSpent = 0
 let tripBudget = 0
 
 enable(false)
-
 function enable(v){
-  ["memberInput","addMemberBtn","desc","amount","payer","addExpenseBtn","splitType"]
-  .forEach(i => $(i).disabled = !v)
+  ["memberInput","addMemberBtn","desc","amount",
+   "payer","addExpenseBtn","splitType"]
+  .forEach(i => {
+    if($(i)) $(i).disabled = !v
+  })
 }
-
 $("tripBtn").onclick = () => {
   let name = $("tripName").value.trim()
 
@@ -22,7 +23,7 @@ $("tripBtn").onclick = () => {
   }
 
   let budget = prompt("Enter Budget (optional)")
-  tripBudget = budget ? Number(budget) : 0
+  tripBudget = budget && !isNaN(budget) ? Number(budget) : 0
 
   enable(true)
   save()
@@ -30,7 +31,6 @@ $("tripBtn").onclick = () => {
 
   $("tripPopup").style.display = "flex"
 }
-
 $("closePopup").onclick = ()=>{
   $("tripPopup").style.display = "none"
 }
@@ -41,13 +41,10 @@ $("newTripBtn").onclick = () => {
     location.reload()
   }
 }
-
 $("addMemberBtn").onclick = addMember
 
 $("memberInput").addEventListener("keydown", e=>{
-  if(e.key==="Enter"){
-    addMember()
-  }
+  if(e.key==="Enter") addMember()
 })
 
 function addMember(){
@@ -65,36 +62,34 @@ function addMember(){
 
   members.push(name)
   balances[name] = 0
+
   $("memberInput").value = ""
   renderMembers()
   save()
 }
-
 function renderMembers(){
   $("members").innerHTML = ""
   $("payer").innerHTML = ""
 
   members.forEach(m=>{
     $("members").innerHTML += `<span class="member-tag">${m}</span>`
-    $("payer").innerHTML += `<option>${m}</option>`
+    $("payer").innerHTML += `<option value="${m}">${m}</option>`
   })
 }
-
 $("splitType").onchange = ()=>{
   let type = $("splitType").value
   $("extraInput").innerHTML = ""
 
   if(type==="unequal"){
     $("extraInput").innerHTML =
-    `<input id="manualInput" placeholder="Example: 200,300,500">`
+      `<input id="manualInput" placeholder="Example: 200,300,500">`
   }
 
   if(type==="percent"){
     $("extraInput").innerHTML =
-    `<input id="percentInput" placeholder="Example: 20,30,50">`
+      `<input id="percentInput" placeholder="Example: 20,30,50">`
   }
 }
-
 $("addExpenseBtn").onclick = ()=>{
 
   let desc = $("desc").value.trim()
@@ -107,7 +102,7 @@ $("addExpenseBtn").onclick = ()=>{
     return
   }
 
-  if(amt <= 0){
+  if(isNaN(amt) || amt <= 0){
     alert("Amount must be greater than 0")
     return
   }
@@ -123,10 +118,16 @@ $("addExpenseBtn").onclick = ()=>{
   }
 
   if(type==="unequal"){
-    let values = $("manualInput").value.split(",").map(Number)
+    let input = $("manualInput")
+    if(!input){
+      alert("Enter manual values")
+      return
+    }
 
-    if(values.length !== members.length){
-      alert("Enter amount for each member")
+    let values = input.value.split(",").map(Number)
+
+    if(values.length !== members.length || values.some(v=>isNaN(v))){
+      alert("Enter valid amount for each member")
       return
     }
 
@@ -136,10 +137,16 @@ $("addExpenseBtn").onclick = ()=>{
   }
 
   if(type==="percent"){
-    let per = $("percentInput").value.split(",").map(Number)
+    let input = $("percentInput")
+    if(!input){
+      alert("Enter percentage values")
+      return
+    }
 
-    if(per.length !== members.length){
-      alert("Enter percentage for each member")
+    let per = input.value.split(",").map(Number)
+
+    if(per.length !== members.length || per.some(v=>isNaN(v))){
+      alert("Enter valid percentage for each member")
       return
     }
 
@@ -166,7 +173,6 @@ $("addExpenseBtn").onclick = ()=>{
   save()
   generateQR()
 }
-
 function calculate(){
   let debt = []
   let credit = []
@@ -193,7 +199,6 @@ function calculate(){
 
   return result
 }
-
 function render(){
 
   $("history").innerHTML = ""
@@ -206,7 +211,7 @@ function render(){
 
   expenses.forEach(e=>{
     $("history").innerHTML +=
-    `${e.desc} - ₹${e.amt} (Paid by ${e.payer})<br>`
+      `${e.desc} - ₹${e.amt} (Paid by ${e.payer})<br>`
   })
 
   $("settlement").innerHTML = ""
@@ -223,13 +228,11 @@ function render(){
 
   renderStats()
 }
-
 function renderStats(){
   $("spentStat").textContent = "₹" + totalSpent.toFixed(2)
   $("remainStat").textContent =
-  tripBudget>0 ? "₹" + (tripBudget-totalSpent).toFixed(2) : "—"
+    tripBudget>0 ? "₹" + (tripBudget-totalSpent).toFixed(2) : "—"
 }
-
 function save(){
   localStorage.setItem("tripData",
   JSON.stringify({
@@ -241,7 +244,6 @@ function save(){
     name:$("tripName").value
   }))
 }
-
 (function(){
   let d = JSON.parse(localStorage.getItem("tripData"))
   if(!d) return
@@ -257,8 +259,8 @@ function save(){
   enable(true)
   renderMembers()
   render()
+  generateQR()
 })()
-
 $("themeBtn").onclick = ()=>{
   document.body.classList.toggle("dark")
   localStorage.setItem("theme",
@@ -268,27 +270,23 @@ $("themeBtn").onclick = ()=>{
 if(localStorage.getItem("theme")==="dark"){
   document.body.classList.add("dark")
 }
+function generateQR(){
 
-function generateQR() {
-
-  // Check if trip data exists
   let data = localStorage.getItem("tripData")
-  if (!data) {
-    alert("No trip data found")
-    return
-  }
+  if (!data) return
 
-  const qrDiv = document.getElementById("qr")
+  let qrDiv = $("qr")
+  if (!qrDiv) return
 
-  if (!qrDiv) {
-    console.error("QR div not found")
-    return
-  }
   qrDiv.innerHTML = ""
-  new QRCode(qrDiv, {
-    text: window.location.origin + "/invoice.html",
-    width: 150,
-    height: 150
+
+  let encodedData = btoa(data)
+
+  new QRCode(qrDiv,{
+    text: window.location.origin +
+          window.location.pathname.replace("index.html","") +
+          "invoice.html?data=" + encodedData,
+    width:150,
+    height:150
   })
 }
-

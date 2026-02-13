@@ -29,9 +29,13 @@ QRCode.js Library
 Expense_Splitter/
 │
 ├── index.html        # Main page
+
 ├── invoice.html      # Invoice page
+
 ├── style.css         # Styling
+
 ├── script.js         # Main logic
+
 └── README.md         # Project documentation
 
 ⚙️ How It Works
@@ -61,7 +65,5 @@ Add payment integration
 Export invoice as PDF
 Dark mode
 
-If you like this project, please give it a ⭐ on GitHub.
-⭐ Support
 
 If you like this project, please give it a ⭐ on GitHub.

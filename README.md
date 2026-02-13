@@ -5,11 +5,17 @@ It helps friends calculate who paid how much and who needs to pay whom — quick
 🚀 Features
 
 ➕ Add multiple members
+
 💵 Enter expenses easily
+
 🔄 Automatic expense calculation
+
 🧾 Generate invoice page
+
 📱 QR Code support for invoice sharing
+
 💾 Uses Local Storage (No database required)
+
 🎨 Clean and modern UI design
 
 🛠️ Technologies Used
